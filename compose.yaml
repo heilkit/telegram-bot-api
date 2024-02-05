@@ -9,7 +9,8 @@ services:
     command: -d "${STORAGE}" -v 1 --local --api-id="${API_ID}" --api-hash="${API_HASH}"
     restart: on-failure:10
     depends_on:
-      - setfacl
+      telegram-bot-api-prelude:
+        condition: service_completed_successfully
     env_file:
       - .env
     user: ${USER_ID}:${GROUP_ID}
@@ -27,7 +28,7 @@ services:
 
   # This could be moved into a separated image, but I don't think it's necessary hence
   # telegram-bot-api wouldn't get restated too often and this image weights only 10MB. So, KISS.
-  setfacl:
+  telegram-bot-api-prelude:
     image: alpine:latest
     entrypoint: apk add --update --no-cache acl && setfacl -m u:${USER_ID}:rwx -R ${STORAGE}
     volumes:

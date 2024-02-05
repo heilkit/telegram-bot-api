@@ -30,7 +30,7 @@ Official source: https://github.com/tdlib/telegram-bot-api.
 
 ---
 *Or you could use a
-one-liner: `git clone https://github.com/heilkit/telegram-bot-api && cd telegram-bot-api && nano .env && USER_ID="$(id -u)" GROUP_ID="$(id -g)" sudo docker compose up`*
+one-liner: `git clone https://github.com/heilkit/telegram-bot-api && cd telegram-bot-api && "${EDITOR:-nano}" .env && USER_ID="$(id -u)" GROUP_ID="$(id -g)" sudo docker compose up`*
 
 ## Setup via classic Docker
 
@@ -38,6 +38,6 @@ one-liner: `git clone https://github.com/heilkit/telegram-bot-api && cd telegram
 2. Create storage directory, i.e., `/var/lib/telegram-bot-api` (replace it with something custom, if you wish, but make
    sure it matches the `-d` argument of `telegram-bot-api`).
 3. Ensure, you put good permissions on the directory, `sudo setfacl -m u:$(id -u):rwx -R /var/lib/telegram-bot-api`.
-4. `STORAGE=/var/lib/telegram-bot-api sudo docker run --name telegram-bot-api -u "$(id -u):$(id -g)" --restart=always -v $STORAGE:$STORAGE -d heilkit/telegram-bot-api -d $STORAGE -v 1 --local --api-id=<API_ID> --api-hash=<API_HASH>`
+4. `sudo STORAGE=/var/lib/telegram-bot-api docker run --name telegram-bot-api -u "$(id -u):$(id -g)" --restart=always -v $STORAGE:$STORAGE -d heilkit/telegram-bot-api -d $STORAGE -v 1 --local --api-id=<API_ID> --api-hash=<API_HASH>`
 
 ### [Project page on DockerHub](https://hub.docker.com/r/heilkit/telegram-bot-api)
