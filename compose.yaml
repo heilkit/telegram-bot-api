@@ -1,21 +1,20 @@
-# Created on 05/02/2024
-# UID="$(id -u)" GID="$(id -g)" sudo docker compose --env-file .env --env-file ~/.env up --no-deps --build -d
+# Why compose.yaml is so complicated?
+# Because of Docker file permission nuances, and your bots wanting to be able to access your local telegram-bot-api's files.
+#
+# Recommended command to run this (unless you've defined $USER_ID & $GROUP_ID in your ENV):
+# USER_ID="$(id -u)" GROUP_ID="$(id -g)" sudo docker compose up -d
 services:
   telegram-bot-api:
     image: heilkit/telegram-bot-api:latest
-    entrypoint: telegram-bot-api -d "${STORAGE}" -v 1 --local --api-id="${API_ID}" --api-hash="${API_HASH}"
-    restart: always
-    network_mode: 'host'
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: '1G'
+    command: -d "${STORAGE}" -v 1 --local --api-id="${API_ID}" --api-hash="${API_HASH}"
+    restart: on-failure:10
+    depends_on:
+      - setfacl
     env_file:
       - .env
-    user: ${UID}:${GID}
+    user: ${USER_ID}:${GROUP_ID}
     ports:
-      - ${PORT}:${PORT}
+      - ${PORT}:8081
     volumes:
       - ${STORAGE}:${STORAGE}
     environment:
@@ -23,5 +22,13 @@ services:
       - API_HASH
       - PORT
       - STORAGE
-      - UID
-      - GID
+      - USER_ID
+      - GROUP_ID
+
+  # This could be moved into a separated image, but I don't think it's necessary hence
+  # telegram-bot-api wouldn't get restated too often and this image weights only 10MB. So, KISS.
+  setfacl:
+    image: alpine:latest
+    entrypoint: apk add --update --no-cache acl && setfacl -m u:${USER_ID}:rwx -R ${STORAGE}
+    volumes:
+      - ${STORAGE}:${STORAGE}

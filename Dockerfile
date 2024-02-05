@@ -20,4 +20,4 @@ RUN apk add --no-cache --update zlib-dev openssl-dev gperf
 
 COPY --from=build /usr/local/bin/telegram-bot-api /usr/local/bin/telegram-bot-api
 
-ENTRYPOINT ["telegram-bot-api"]
+ENTRYPOINT ["telegram-bot-api", "--port", "8081"]
