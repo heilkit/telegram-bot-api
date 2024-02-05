@@ -3,6 +3,8 @@
 The solo purpose of this package is to provide the most hands-free experience of running your own Telegram Bot API
 server.
 
+Plug and play: `git clone https://github.com/heilkit/telegram-bot-api && cd telegram-bot-api && "${EDITOR:-nano}" .env && USER_ID="$(id -u)" GROUP_ID="$(id -g)" sudo docker compose up -d`
+
 ## Advantages of your own Telegram Bot API:
 
 - Download files without a size limit.
