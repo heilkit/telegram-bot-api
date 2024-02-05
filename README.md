@@ -35,7 +35,7 @@ Official source: https://github.com/tdlib/telegram-bot-api.
 git clone https://github.com/heilkit/telegram-bot-api && 
 cd telegram-bot-api && 
 "${EDITOR:-nano}" .env && 
-USER_ID="$(id -u)" GROUP_ID="$(id -g)" sudo docker compose up
+USER_ID="$(id -u)" GROUP_ID="$(id -g)" sudo docker compose up -d
 ```
 
 ## Setup via classic Docker
