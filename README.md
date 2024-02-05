@@ -3,7 +3,7 @@
 The solo purpose of this package is to provide the most hands-free experience of running your own Telegram Bot API
 server.
 
-Plug and play: `git clone https://github.com/heilkit/telegram-bot-api && cd telegram-bot-api && "${EDITOR:-nano}" .env && USER_ID="$(id -u)" GROUP_ID="$(id -g)" sudo docker compose up -d`
+Plug and play: `git clone https://github.com/heilkit/telegram-bot-api && cd telegram-bot-api && "${EDITOR:-nano}" .env && sudo USER_ID="$(id -u)" GROUP_ID="$(id -g)" docker compose up -d`
 
 ## Advantages of your own Telegram Bot API:
 
@@ -28,7 +28,7 @@ Official source: https://github.com/tdlib/telegram-bot-api.
 
 1. `git clone https://github.com/heilkit/telegram-bot-api && cd telegram-bot-api`
 2. Provide your API ID and HASH in `.env` file.
-3. `USER_ID="$(id -u)" GROUP_ID="$(id -g)" sudo docker compose up -d`
+3. `sudo USER_ID="$(id -u)" GROUP_ID="$(id -g)" docker compose up -d`
 
 ---
 **Alternatively you could use a "one-liner":**
@@ -37,7 +37,7 @@ Official source: https://github.com/tdlib/telegram-bot-api.
 git clone https://github.com/heilkit/telegram-bot-api && 
 cd telegram-bot-api && 
 "${EDITOR:-nano}" .env && 
-USER_ID="$(id -u)" GROUP_ID="$(id -g)" sudo docker compose up -d
+sudo USER_ID="$(id -u)" GROUP_ID="$(id -g)" docker compose up -d
 ```
 
 ## Setup via classic Docker
